@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <title>Todo App</title>
+                <title>Memoreez</title>
             </Head>
             <main>
                 {/* Wrap provider around App */}

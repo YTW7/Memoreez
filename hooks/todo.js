@@ -8,7 +8,7 @@ import { utf8 } from '@project-serum/anchor/dist/cjs/utils/bytes'
 import { findProgramAddressSync } from '@project-serum/anchor/dist/cjs/utils/pubkey'
 import { useAnchorWallet, useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { authorFilter } from '../utils'
-
+import { getAvatarUrl } from "../functions/getAvatarUrl"
 // Static data that reflects the todo struct of the solana program
 let dummyTodos = [
     {
@@ -69,7 +69,8 @@ export function useTodo() {
     const [loading, setLoading] = useState(false)
     const [transactionPending, setTransactionPending] = useState(false)
     const [input, setInput] = useState("")
-
+    const [date,setDate]=useState("")
+    const [dateArray, setDateArray]=useState([])
 
     const program = useMemo(() => {
         if (anchorWallet) {
@@ -115,7 +116,9 @@ export function useTodo() {
     const handleChange = (e)=> {
         setInput(e.target.value)
     }
-  
+    const dateChange=(e)=>{
+        setDate(e.target.value)
+    }
     const initializeUser = async () =>{
          if (program && publicKey)
          {
@@ -189,6 +192,20 @@ export function useTodo() {
             }
             setTodos([newTodo,...todos])
             setInput("")
+        }
+    }
+    const addDate = (e) => {
+        e.preventDefault()
+        if(input) {
+            const newDate = {
+                account:{
+                    idx: parseInt(dateArray[dateArray.length-1].account.idx) + 1,
+                    content: input,
+                    marked: false
+                }
+            }
+            setTodos([newDate,...dateArray])
+            setDate("")
         }
     }
 
@@ -288,9 +305,18 @@ export function useTodo() {
           )
     }
 
-
+    const datelog= useMemo(() => [dateArray] )
     const incompleteTodos = useMemo(() => todos.filter((todo) => !todo.account.marked), [todos])
     const completedTodos = useMemo(() => todos.filter((todo) => todo.account.marked), [todos])
+    const { connected } = useWallet()
+    const [userAddress, setUserAddress] = useState("11111111111111111111111111111111")
+    const [avatar, setAvatar] = useState("")
+    useEffect(() => {
+        if (connected) {
+            setAvatar(getAvatarUrl(publicKey.toString()))
+            setUserAddress(publicKey.toString())
+        }
+    }, [connected])
 
-    return { initialized, initializeStaticUser, loading, transactionPending, completedTodos, incompleteTodos, markStaticTodo, removeStaticTodo, addStaticTodo, input, setInput, handleChange, initializeUser, addTodo, markTodo, removeTodo }
+    return { initialized, initializeStaticUser, loading,datelog, transactionPending, completedTodos, incompleteTodos, markStaticTodo, removeStaticTodo, addStaticTodo, input, setInput, date, setDate, dateChange, addDate, handleChange, initializeUser, addTodo, markTodo, removeTodo, avatar, userAddress }
 }
