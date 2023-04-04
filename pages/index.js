@@ -47,7 +47,7 @@ const Home = () => {
                         Initialize Account
                     </button>
                 )}
-                <WalletMultiButton />
+                <WalletMultiButton/>
             </div>
 
             <div className={styles.mainContainer}>
