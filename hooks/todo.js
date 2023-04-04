@@ -310,7 +310,7 @@ export function useTodo() {
     const completedTodos = useMemo(() => todos.filter((todo) => todo.account.marked), [todos])
     const { connected } = useWallet()
     const [userAddress, setUserAddress] = useState("11111111111111111111111111111111")
-    const [avatar, setAvatar] = useState("")
+    const [avatar, setAvatar] = useState(getAvatarUrl("11111111111111111111111111111111"))
     useEffect(() => {
         if (connected) {
             setAvatar(getAvatarUrl(publicKey.toString()))

@@ -15,7 +15,7 @@ const Home = () => {
                 <div className={styles.actionsContainer}>
                     <h1 className='text-5xl'>Hello, Welcome to Memoreez</h1>
                     <div className="h-16 w-16 rounded-full border-2 border-white">
-                    <div className="flex cursor-pointer flex-col items-center space-y-3">
+                    <div className="flex flex-col items-center space-y-3">
             <div className="h-16 w-16 rounded-full border-2 border-white">
                 <img className="h-full w-full rounded-full object-cover" src={avatar} />
             </div>

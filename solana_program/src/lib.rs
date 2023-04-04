@@ -6,7 +6,7 @@ pub mod states;
 
 use crate::{constant::*, error::*, states::*};
 
-declare_id!("Bb78foWRpSfeF7W8DE4gRDqWSa8D6YeMTKQDBbmBZCnF");
+declare_id!("CqddRvFs18g5v5LanAQmtHmXADaEVbGkuEw5VVUBoHBJ");
 
 #[program] 
 pub mod todo_app{
